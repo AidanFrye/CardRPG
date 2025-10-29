@@ -13,10 +13,10 @@ public class QueueControl : MonoBehaviour
             for (int i = 0; i < queue.Count; i++) 
             {
                 queue[i].SetPlayed(true);
-                Debug.Log("Played card of type" + queue[i].GetColor().ToString());
             }
             queue.Clear();
             HandControl.RefillHand();
+            PlayerControl.ChangePlayerHealth(-1);
         }
     }
 }
