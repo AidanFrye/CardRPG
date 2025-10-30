@@ -6,15 +6,21 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     public static int playerHealth;
+    public static int playerMana;
 
     private void Awake()
     {
         playerHealth = 10;
+        playerMana = 5;
     }
 
     public static void ChangePlayerHealth(int healthChange) 
     {
         playerHealth += healthChange;
-        Debug.Log("Player health is now: " + playerHealth);
+    }
+
+    public static void ChangePlayerMana(int manaChange) 
+    {
+        playerMana += manaChange;
     }
 }

@@ -13,10 +13,13 @@ public class QueueControl : MonoBehaviour
             for (int i = 0; i < queue.Count; i++) 
             {
                 queue[i].SetPlayed(true);
+                queue[i].PlayCard();
             }
+            Debug.Log("Player mana: " + PlayerControl.playerMana);
+            Debug.Log("Player health: " + PlayerControl.playerHealth);
+            Debug.Log("Enemy health: " + GameManager.enemies[GameManager.target].GetHealth());
             queue.Clear();
             HandControl.RefillHand();
-            PlayerControl.ChangePlayerHealth(-1);
         }
     }
 }

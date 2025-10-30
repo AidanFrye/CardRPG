@@ -56,4 +56,36 @@ public class Card
     {
         return played;
     }
+
+    public void PlayCard() 
+    {
+        switch (cardType) 
+        {
+            case 1:
+                PlayerControl.ChangePlayerMana(2);
+                break;
+            case 2:
+                if (PlayerControl.playerMana > 0)
+                {
+                    PlayerControl.ChangePlayerHealth(1);
+                    PlayerControl.ChangePlayerMana(-1);
+                }
+                else 
+                {
+                    Debug.Log("no mana left");
+                }
+                break;
+            case 3:
+                if (PlayerControl.playerMana > 0)
+                {
+                    GameManager.enemies[GameManager.target].ChangeHealth(-1);
+                    PlayerControl.ChangePlayerMana(-1);
+                }
+                else
+                {
+                    Debug.Log("no mana left");
+                }
+                break;
+        }
+    }
 }

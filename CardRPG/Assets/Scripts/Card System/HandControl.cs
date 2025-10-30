@@ -10,7 +10,7 @@ public class HandControl : MonoBehaviour
 
     private void Awake()
     {
-        cardPrefab = Resources.Load<GameObject>("Prefabs/Basic Card");
+        cardPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab");
         initIndex = 0;
         hand = new List<Card>();
         RefillHand();
@@ -26,12 +26,29 @@ public class HandControl : MonoBehaviour
                 var card = new Card();
                 hand.Add(card);
                 card.SetQueueIndex(initIndex);
-                card.SetCardType(Random.Range(1, 4));
+                card.SetCardType(ChooseCardType());
                 GameObject cardGO = Instantiate(cardPrefab);
-                CardControl ui = cardGO.GetComponent<CardControl>();
-                ui.SetCard(card);
+                CardControl cardControl = cardGO.GetComponent<CardControl>();
+                cardControl.SetCard(card);
                 initIndex++;
             }
+        }
+    }
+
+    private static int ChooseCardType() 
+    {
+        var rand = Random.Range(1, 11);
+        if (rand < 3)
+        {
+            return 1; //20 % for mana card
+        }
+        else if (rand < 6)
+        {
+            return 2; //30 % for health card
+        }
+        else 
+        {
+            return 3; //50 % for damage card
         }
     }
 }

@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class CardControl : MonoBehaviour
 {
-    private int index;
     Card card;
     private GameObject queue;
     private GameObject cardController;
     private void Awake()
     {
-        cardController = GameObject.Find("CardController");
+        cardController = GameObject.Find("GameManager");
         queue = GameObject.Find("Queue");
     }
-
     private void Update()
     {
         UpdatePositionUI();
     }
-
     public void SetCard(Card assignedCard) 
     {
         card = assignedCard;
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.color = card.GetColor();
     }
-
     private void OnMouseDown()
     {
         if (HandControl.hand.Contains(card))
@@ -37,7 +33,6 @@ public class CardControl : MonoBehaviour
             AddCardToHand();
         }
     }
-
     private void AddCardToQueue() 
     {
         HandControl.hand.Remove(card);
@@ -48,7 +43,6 @@ public class CardControl : MonoBehaviour
         QueueControl.queue.Remove(card);
         HandControl.hand.Add(card);
     }
-
     private void UpdatePositionUI() 
     {
         if (QueueControl.queue.Contains(card))
