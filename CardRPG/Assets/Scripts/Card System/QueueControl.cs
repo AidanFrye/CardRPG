@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QueueControl : MonoBehaviour
@@ -8,6 +9,10 @@ public class QueueControl : MonoBehaviour
 
     private void Update()
     {
+        if(TurnManager.currentState != TurnManager.TurnState.Player)
+        { 
+            return; 
+        }
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             for (int i = 0; i < queue.Count; i++) 

@@ -24,6 +24,10 @@ public class CardControl : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (TurnManager.currentState != TurnManager.TurnState.Player)
+        {
+            return;
+        }
         if (HandControl.hand.Contains(card))
         {
             AddCardToQueue();
