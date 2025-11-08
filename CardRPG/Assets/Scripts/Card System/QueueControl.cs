@@ -23,7 +23,6 @@ public class QueueControl : MonoBehaviour
     {
         for (int i = 0; i < queue.Count; i++)
         {
-            queue[i].SetPlayed(true);
             queue[i].PlayCard();
             HandControl.discard.Add(queue[i]);
             yield return new WaitForSeconds(1f);
