@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static List<Enemy> enemies = new List<Enemy>();
     public static int enemyIndex = 0;
     public int enemyCount = 2;
+    public Canvas gameplayCanvas;
     #endregion
 
     private void Awake()
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
     {
         var xOffset = target * 2;
         var yOffset = target * -1;
-        selector.transform.position = new Vector2(7, 1) + new Vector2(xOffset, yOffset);
+        selector.transform.position = new Vector2(6, 1) + new Vector2(xOffset, yOffset);
     }
 
     private void SpawnEnemies() 
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
             enemies.Add(enemy);
             var xOffset = i * 2;
             var yOffset = i * -1;
-            GameObject enemyGO = Instantiate(enemyPrefab, new Vector2(7, 0) + new Vector2(xOffset, yOffset), Quaternion.identity);
+            GameObject enemyGO = Instantiate(enemyPrefab, new Vector2(6, 0) + new Vector2(xOffset, yOffset), Quaternion.identity, gameplayCanvas.transform);
             EnemyControl enemyControl = enemyGO.GetComponent<EnemyControl>();
             enemyControl.SetEnemy(enemy);
             enemyIndex++;

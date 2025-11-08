@@ -47,20 +47,24 @@ public class CardControl : MonoBehaviour
         QueueControl.queue.Remove(card);
         HandControl.hand.Add(card);
     }
+
+    private void AddCardToDiscard() 
+    {
+        HandControl.discard.Add(card);
+    }
     private void UpdatePositionUI() 
     {
         if (QueueControl.queue.Contains(card))
         {
-            transform.parent = queue.transform;
-            transform.localPosition = new Vector2(-0.36f, -0.35f) + new Vector2(0.25f * QueueControl.queue.IndexOf(card), 0);
+            transform.localPosition = new Vector2(-425f, -113f) + new Vector2(60f * QueueControl.queue.IndexOf(card), 0);
         }
         else if (HandControl.hand.Contains(card)) 
         {
-            transform.parent = cardController.transform;
-            transform.localPosition = new Vector2(-7.29f, -2.18f) + new Vector2(HandControl.hand.IndexOf(card) * 2.1f, 0);
+            transform.localPosition = new Vector2(-425f, -211f) + new Vector2(HandControl.hand.IndexOf(card) * 60f, 0);
         }
         if (card.Played()) 
         {
+            //AddCardToDiscard();
             Destroy(gameObject);
         }
     }

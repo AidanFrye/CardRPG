@@ -15,16 +15,24 @@ public class QueueControl : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            for (int i = 0; i < queue.Count; i++) 
-            {
-                queue[i].SetPlayed(true);
-                queue[i].PlayCard();
-            }
-            Debug.Log("Player mana: " + PlayerControl.playerMana);
-            Debug.Log("Player health: " + PlayerControl.playerHealth);
-            Debug.Log("Enemy health: " + GameManager.enemies[GameManager.target].GetHealth());
-            queue.Clear();
-            HandControl.RefillHand();
+            StartCoroutine(PlayHand());
         }
+    }
+
+    IEnumerator PlayHand() 
+    {
+        for (int i = 0; i < queue.Count; i++)
+        {
+            queue[i].SetPlayed(true);
+            queue[i].PlayCard();
+            HandControl.discard.Add(queue[i]);
+            yield return new WaitForSeconds(1f);
+        }
+        Debug.Log("Player mana: " + PlayerControl.playerMana);
+        Debug.Log("Player health: " + PlayerControl.playerHealth);
+        Debug.Log("Enemy health: " + GameManager.enemies[GameManager.target].GetHealth());
+        queue.Clear();
+        HandControl.RefillHand();
+        TurnManager.SetTurnState(TurnManager.TurnState.Enemy);
     }
 }

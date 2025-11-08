@@ -9,6 +9,28 @@ public class Card
     private int cardType;
     private Color color;
     private bool played;
+    private bool hasEffects = false;
+    private bool drawn = false;
+
+    public bool Drawn() 
+    {
+        return drawn;
+    }
+
+    public void SetDrawn(bool drawn) 
+    {
+        this.drawn = drawn;
+    }
+
+    public bool HasEffects() 
+    {
+        return hasEffects;
+    }
+
+    public void SetHasEffects(bool hasEffects) 
+    {
+        this.hasEffects = hasEffects;
+    }
 
     public int GetQueueIndex()
     {
@@ -59,16 +81,22 @@ public class Card
 
     public void PlayCard() 
     {
+        string cardString = "";
         switch (cardType) 
         {
             case 1:
                 PlayerControl.ChangePlayerMana(2);
+                cardString = "mana";
                 break;
             case 2:
                 if (PlayerControl.playerMana > 0)
                 {
-                    PlayerControl.ChangePlayerHealth(1);
+                    if (PlayerControl.playerHealth < 10)
+                    {
+                        PlayerControl.ChangePlayerHealth(1);
+                    }
                     PlayerControl.ChangePlayerMana(-1);
+                    cardString = "heal";
                 }
                 else 
                 {
@@ -80,6 +108,7 @@ public class Card
                 {
                     GameManager.enemies[GameManager.target].ChangeHealth(-1);
                     PlayerControl.ChangePlayerMana(-1);
+                    cardString = "damage";
                 }
                 else
                 {
@@ -87,5 +116,7 @@ public class Card
                 }
                 break;
         }
+        TextReplayUIControl.actions.Add("Player used a " + cardString + " card");
+        TextReplayUIControl.UpdateReplayUI();
     }
 }

@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    public static int playerHealth;
+    public static int playerMaxHealth = 10;
     public static int playerMana;
+    public static int playerHealth;
 
     private void Awake()
     {
-        playerHealth = 10;
+        playerHealth = playerMaxHealth;
         playerMana = 5;
     }
 
     public static void ChangePlayerHealth(int healthChange) 
     {
         playerHealth += healthChange;
+        PlayerHealthBarController.UpdateHealthUI();
     }
 
     public static void ChangePlayerMana(int manaChange) 

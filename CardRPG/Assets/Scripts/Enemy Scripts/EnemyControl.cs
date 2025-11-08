@@ -12,11 +12,11 @@ public class EnemyControl : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        gameObject.transform.localScale -= new Vector3(0.1f, 0.1f);
+        gameObject.transform.localScale -= new Vector3(3f, 3f);
     }
     private void OnMouseUp()
     {
-        gameObject.transform.localScale += new Vector3(0.1f, 0.1f);
+        gameObject.transform.localScale += new Vector3(3f, 3f);
         Debug.Log("Enemy number " + enemy.GetQueueIndex() + " selected.");
         GameManager.target = enemy.GetQueueIndex();
         Debug.Log("The health of the enemy is: " + GameManager.enemies[GameManager.target].GetHealth());

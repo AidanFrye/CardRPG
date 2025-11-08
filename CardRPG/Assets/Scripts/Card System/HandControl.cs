@@ -7,12 +7,19 @@ public class HandControl : MonoBehaviour
     public static List<Card> hand;
     public static GameObject cardPrefab;
     public static int initIndex;
+    public static GameObject gameplayCanvas;
+    public static List<Card> deck;
+    public static List<Card> discard;
 
     private void Awake()
     {
         cardPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab");
+        gameplayCanvas = GameObject.Find("GameplayCanvas");
         initIndex = 0;
         hand = new List<Card>();
+        deck = new List<Card>();
+        discard = new List<Card>();
+        CreateStartingDeck();
         RefillHand();
     }
 
@@ -23,32 +30,78 @@ public class HandControl : MonoBehaviour
             int numToDraw = 7 - hand.Count;
             for (int i = 0; i < numToDraw; i++)
             {
-                var card = new Card();
+                if (CardsInDeck() == 0)
+                {
+                    for (int j = 0; j < discard.Count; j++) 
+                    {
+                        discard[j].SetDrawn(false);
+                        discard[j].SetPlayed(false);
+                    }
+                    discard.Clear();
+                    Debug.Log("Reshuffled discard into deck");
+                }
+                var card = deck[Random.Range(0, deck.Count)];
+                while (card.Drawn() == true) 
+                {
+                    card = deck[Random.Range(0, deck.Count)];
+                }
+                card.SetDrawn(true);
                 hand.Add(card);
-                card.SetQueueIndex(initIndex);
-                card.SetCardType(ChooseCardType());
-                GameObject cardGO = Instantiate(cardPrefab);
+                GameObject cardGO = Instantiate(cardPrefab, gameplayCanvas.transform);
                 CardControl cardControl = cardGO.GetComponent<CardControl>();
                 cardControl.SetCard(card);
-                initIndex++;
+            }
+            for (int j = 0; j < deck.Count; j++)
+            {
+                if (!deck[j].Drawn())
+                {
+                    Debug.Log("card no " + j + " in deck is of card type: " + deck[j].GetCardType());
+                }
             }
         }
     }
 
-    private static int ChooseCardType() 
+    private void CreateStartingDeck() 
     {
-        var rand = Random.Range(1, 11);
-        if (rand < 3)
+        for (int i = 0; i < 5; i++)
         {
-            return 1; //20 % for mana card
+            var card = new Card();
+            card.SetCardType(3);
+            card.SetHasEffects(false);
+            card.SetQueueIndex(initIndex);
+            deck.Add(card);
+            initIndex++;
         }
-        else if (rand < 6)
+        for (int i = 0; i < 4; i++)
         {
-            return 2; //30 % for health card
+            var card = new Card();
+            card.SetCardType(2);
+            card.SetHasEffects(false);
+            card.SetQueueIndex(initIndex);
+            deck.Add(card);
+            initIndex++;
         }
-        else 
+        for (int i = 0; i < 3; i++)
         {
-            return 3; //50 % for damage card
+            var card = new Card();
+            card.SetCardType(1);
+            card.SetHasEffects(false);
+            card.SetQueueIndex(initIndex);
+            deck.Add(card);
+            initIndex++;
         }
+    }
+
+    private static int CardsInDeck() 
+    {
+        int cardCount = 0;
+        for (int i = 0; i < deck.Count; i++) 
+        {
+            if (!deck[i].Drawn()) 
+            {
+                cardCount++;
+            }
+        }
+        return cardCount;
     }
 }

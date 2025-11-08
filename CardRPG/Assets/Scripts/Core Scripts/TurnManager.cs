@@ -12,6 +12,8 @@ public class TurnManager : MonoBehaviour
         GameOver
     }
 
+    public bool enemyCoroutineStarted = false;
+
     public static TurnState currentState;
 
     private void Awake()
@@ -27,7 +29,10 @@ public class TurnManager : MonoBehaviour
                 //allow for player movements
                 break;
             case TurnState.Enemy:
-                StartCoroutine(EnemyTurn());
+                if (!enemyCoroutineStarted)
+                {
+                    StartCoroutine(EnemyTurn());
+                }
                 break;
             case TurnState.Wait:
                 //literally do nothing
@@ -74,11 +79,14 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EnemyTurn() 
     {
+        enemyCoroutineStarted = true;
         yield return new WaitForSeconds(1f);
-        //Enemy attack logic
+        PlayerControl.ChangePlayerHealth(-1);
+        //enemy animation start
         yield return new WaitForSeconds(1f);
         //wait until end of attack animation
         SetTurnState(TurnState.Player);
+        enemyCoroutineStarted = false;
         //player turn again (or whoever it goes to next);
     }
 }
