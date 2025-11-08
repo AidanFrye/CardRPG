@@ -28,13 +28,22 @@ public class CardControl : MonoBehaviour
         {
             return;
         }
-        if (HandControl.hand.Contains(card))
+        if (card.GetCardType() != 4)
         {
-            AddCardToQueue();
+            if (HandControl.hand.Contains(card))
+            {
+                AddCardToQueue();
+            }
+            else if (QueueControl.queue.Contains(card))
+            {
+                AddCardToHand();
+            }
         }
-        else if (QueueControl.queue.Contains(card)) 
+        else 
         {
-            AddCardToHand();
+            HandControl.hand.Remove(card);
+            HandControl.discard.Add(card);
+            card.PlayCard();
         }
     }
     private void AddCardToQueue() 
@@ -46,11 +55,6 @@ public class CardControl : MonoBehaviour
     {
         QueueControl.queue.Remove(card);
         HandControl.hand.Add(card);
-    }
-
-    private void AddCardToDiscard() 
-    {
-        HandControl.discard.Add(card);
     }
     private void UpdatePositionUI() 
     {

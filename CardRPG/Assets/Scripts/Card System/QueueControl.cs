@@ -32,7 +32,7 @@ public class QueueControl : MonoBehaviour
         Debug.Log("Player health: " + PlayerControl.playerHealth);
         Debug.Log("Enemy health: " + GameManager.enemies[GameManager.target].GetHealth());
         queue.Clear();
-        HandControl.RefillHand();
+        HandControl.RefillHand(7);
         TurnManager.SetTurnState(TurnManager.TurnState.Enemy);
     }
 }

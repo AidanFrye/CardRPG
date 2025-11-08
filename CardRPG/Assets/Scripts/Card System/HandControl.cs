@@ -20,14 +20,14 @@ public class HandControl : MonoBehaviour
         deck = new List<Card>();
         discard = new List<Card>();
         CreateStartingDeck();
-        RefillHand();
+        RefillHand(7);
     }
 
-    public static void RefillHand() 
+    public static void RefillHand(int maxHandCount) 
     {
-        if (hand.Count < 7) 
+        if (hand.Count < maxHandCount) 
         {
-            int numToDraw = 7 - hand.Count;
+            int numToDraw = maxHandCount - hand.Count;
             for (int i = 0; i < numToDraw; i++)
             {
                 if (CardsInDeck() == 0)
@@ -86,6 +86,15 @@ public class HandControl : MonoBehaviour
             var card = new Card();
             card.SetCardType(1);
             card.SetHasEffects(false);
+            card.SetQueueIndex(initIndex);
+            deck.Add(card);
+            initIndex++;
+        }
+        {
+            var card = new Card();
+            card.SetCardType(4);
+            card.SetHasEffects(true);
+            card.SetCardName("Draw 2");
             card.SetQueueIndex(initIndex);
             deck.Add(card);
             initIndex++;

@@ -10,7 +10,18 @@ public class Card
     private Color color;
     private bool played;
     private bool hasEffects = false;
+    private string cardName;
     private bool drawn = false;
+
+    public void SetCardName(string cardName) 
+    {
+        this.cardName = cardName;
+    }
+
+    public string GetCardName() 
+    {
+        return cardName;
+    }
 
     public bool Drawn() 
     {
@@ -52,14 +63,17 @@ public class Card
         this.cardType = cardType;
         switch (cardType)
         {
-            case 1:
+            case 1: //mana
                 color = Color.blue;
                 break;
-            case 2:
+            case 2: //health
                 color = Color.green;
                 break;
-            case 3:
+            case 3: //damage
                 color = Color.red;
+                break;
+            case 4: //unique
+                color = Color.yellow;
                 break;
         }
     }
@@ -81,6 +95,7 @@ public class Card
 
     public void PlayCard() 
     {
+        SetPlayed(true);
         string cardString = "";
         switch (cardType) 
         {
@@ -115,8 +130,22 @@ public class Card
                     Debug.Log("no mana left");
                 }
                 break;
+            case 4:
+                UniqueEffect();
+                break;
         }
         TextReplayUIControl.actions.Add("Player used a " + cardString + " card");
         TextReplayUIControl.UpdateReplayUI();
+    }
+
+    private void UniqueEffect() 
+    {
+        switch (cardName) 
+        {
+            case "Draw 2":
+                Debug.Log("drew 2 cards");
+                HandControl.RefillHand(8);
+                break;
+        }
     }
 }
