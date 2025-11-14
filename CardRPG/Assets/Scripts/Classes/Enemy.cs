@@ -6,7 +6,23 @@ public class Enemy
 {
     private int health;
     private int queueIndex;
-    private int enemyType;
+    private GameManager.EnemyType enemyType;
+    private int maxHealth;
+    private int damage;
+
+    #region Get Set Damage
+    public int DetDamage() 
+    {
+        return damage;
+    }
+
+    public void SetDamage(int damage) 
+    {
+        this.damage = damage;
+    }
+    #endregion
+
+    #region Get Set Change Health
 
     public int GetHealth() 
     {
@@ -17,11 +33,25 @@ public class Enemy
     {
         this.health = health;
     }
-    public void ChangeHealth(int health) 
+    public void ChangeHealth(int health)
     {
         this.health += health;
     }
+    #endregion
 
+    #region Get Set MaxHealth
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void SetMaxHealth(int maxHealth)
+    {
+        this.maxHealth = maxHealth;
+    }
+    #endregion
+
+    #region Get Set QueueIndex
     public int GetQueueIndex() 
     {
         return queueIndex;
@@ -31,14 +61,17 @@ public class Enemy
     {
         this.queueIndex = queueIndex;
     }
+    #endregion
 
-    public int GetEnemyType() 
+    #region Get Set EnemyType
+    public GameManager.EnemyType GetEnemyType() 
     {
         return enemyType;
     }
 
-    public void SetEnemyType(int enemyType) 
+    public void SetEnemyType(GameManager.EnemyType enemyType) 
     {
         this.enemyType = enemyType;
     }
+    #endregion
 }

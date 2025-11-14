@@ -6,36 +6,40 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
     private GameObject enemyPrefab;
-    private GameObject selector;
     public static int target;
     public static List<Enemy> enemies = new List<Enemy>();
     public static int enemyIndex = 0;
-    public int enemyCount = 2;
     public Canvas gameplayCanvas;
+
+    [SerializeField] private List<EnemyScriptableObject> enemySOs;
+    #endregion
+
+    #region EnemyTypeEnum
+    public enum EnemyType
+    {
+        Goblin,
+        Skeleton,
+        Dragon
+    }
     #endregion
 
     private void Awake()
     {
-        selector = GameObject.Find("Selector");
         enemyPrefab = Resources.Load<GameObject>("Prefabs/EnemyPrefab");
-        SpawnEnemies();
+        SpawnEnemies(2, EnemyType.Goblin);
     }
-
-    private void Update()
-    {
-        var xOffset = target * 2;
-        var yOffset = target * -1;
-        selector.transform.position = new Vector2(6, 1) + new Vector2(xOffset, yOffset);
-    }
-
-    private void SpawnEnemies() 
+    private void SpawnEnemies(int enemyCount, EnemyType enemyType) 
     {
         for (int i = 0; i < enemyCount; i++)
         {
             var enemy = new Enemy();
+            var type = enemySOs[(int)enemyType];
             enemy.SetQueueIndex(enemyIndex);
-            enemy.SetEnemyType(Random.Range(1, 4));
-            enemy.SetHealth(10);
+            enemy.SetEnemyType(enemyType);
+            enemy.SetMaxHealth(type.maxHealth);
+            enemy.SetDamage(type.damage);
+            enemy.SetHealth(enemy.GetMaxHealth());
+            enemy.SetQueueIndex(i);
             enemies.Add(enemy);
             var xOffset = i * 2;
             var yOffset = i * -1;
