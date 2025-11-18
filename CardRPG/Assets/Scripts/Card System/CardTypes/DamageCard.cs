@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class DamageCard : Card
 {
+    public DamageCard() 
+    {
+        SetSprite(Resources.Load<Sprite>("Sprites/Cards/DamageCardSprite"));
+    }
+
     override protected void CardEffect()
     {
         var cardString = "damage";
+        Effect();
+        TextReplayUIControl.actions.Add("Player used a " + cardString + " card");
+        TextReplayUIControl.UpdateReplayUI();
+    }
+
+    private void Effect() 
+    {
         if (PlayerControl.playerMana > 0)
         {
             GameManager.enemies[GameManager.target].ChangeHealth(-1);
@@ -16,7 +28,5 @@ public class DamageCard : Card
         {
             Debug.Log("no mana left");
         }
-        TextReplayUIControl.actions.Add("Player used a " + cardString + " card");
-        TextReplayUIControl.UpdateReplayUI();
     }
 }

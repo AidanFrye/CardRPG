@@ -6,14 +6,19 @@ public class Draw2 : Card
 {
     public Draw2() 
     {
-        SetCardName("Draw2");
+        SetSprite(Resources.Load<Sprite>("Sprites/Cards/Draw2CardSprite"));
     }
 
     protected override void CardEffect() 
     {
-        var cardString = "draw";
-        HandControl.RefillHand(HandControl.hand.Count + 2);
+        var cardString = "draw 2";
+        Effect();
         TextReplayUIControl.actions.Add("Player used a " + cardString + " card");
         TextReplayUIControl.UpdateReplayUI();
+    }
+
+    private void Effect() 
+    {
+        HandControl.RefillHand(HandControl.hand.Count + 2);
     }
 }

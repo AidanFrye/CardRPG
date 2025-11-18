@@ -9,13 +9,12 @@ public abstract class Card
     private int cardType;
     private Color color;
     private bool played;
-    private bool hasEffects = false;
     private string cardName;
     private bool drawn = false;
     public string cardString = "";
-    //check this if replay text is wrong
+    private Sprite sprite;
 
-    #region Get Set CardName
+    /*#region Get Set CardName
     public void SetCardName(string cardName) 
     {
         this.cardName = cardName;
@@ -25,29 +24,17 @@ public abstract class Card
     {
         return cardName;
     }
-    #endregion
+    #endregion*/
 
     #region Get Set Drawn
-    public bool Drawn() 
+    public bool Drawn()
     {
         return drawn;
     }
 
-    public void SetDrawn(bool drawn) 
+    public void SetDrawn(bool drawn)
     {
         this.drawn = drawn;
-    }
-    #endregion
-
-    #region Get Set HasEffects
-    public bool HasEffects() 
-    {
-        return hasEffects;
-    }
-
-    public void SetHasEffects(bool hasEffects) 
-    {
-        this.hasEffects = hasEffects;
     }
     #endregion
 
@@ -72,21 +59,7 @@ public abstract class Card
     public void SetCardType(int cardType)
     {
         this.cardType = cardType;
-        switch (cardType)
-        {
-            case 1: //mana
-                color = Color.blue;
-                break;
-            case 2: //health
-                color = Color.green;
-                break;
-            case 3: //damage
-                color = Color.red;
-                break;
-            case 4: //unique
-                color = Color.yellow;
-                break;
-        }
+        //1 is spell (goes into the queue to be cast), 2 is cantrip (cast immediately)
     }
     #endregion
 
@@ -98,17 +71,30 @@ public abstract class Card
     #endregion
 
     #region Get Set Played
-    public void SetPlayed(bool played) 
+    public void SetPlayed(bool played)
     {
         this.played = played;
     }
 
-    public bool Played() 
+    public bool Played()
     {
         return played;
     }
-    #endregion 
+    #endregion
 
+    #region Get Set Sprite
+    public Sprite GetSprite()
+    {
+        Debug.Log("returning sprite");
+        return sprite;
+    }
+
+    public void SetSprite(Sprite sprite) 
+    {
+        Debug.Log("setting sprite");
+        this.sprite = sprite;
+    }
+    #endregion
     public void PlayCard() 
     {
         SetPlayed(true);

@@ -15,7 +15,11 @@ public class QueueControl : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            StartCoroutine(PlayHand());
+            if (TurnManager.currentState == TurnManager.TurnState.Player)
+            {
+                TurnManager.SetTurnState(TurnManager.TurnState.Wait);
+                StartCoroutine(PlayHand());
+            }
         }
     }
 

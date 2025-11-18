@@ -20,7 +20,7 @@ public class CardControl : MonoBehaviour
     {
         card = assignedCard;
         SpriteRenderer spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.color = card.GetColor();
+        spriteRenderer.sprite = card.GetSprite();
     }
     private void OnMouseDown()
     {
@@ -28,7 +28,7 @@ public class CardControl : MonoBehaviour
         {
             return;
         }
-        if (card.GetCardType() != 4)
+        if (card.GetCardType() != 2)
         {
             if (HandControl.hand.Contains(card))
             {

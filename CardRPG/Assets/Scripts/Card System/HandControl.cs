@@ -51,13 +51,6 @@ public class HandControl : MonoBehaviour
                 CardControl cardControl = cardGO.GetComponent<CardControl>();
                 cardControl.SetCard(card);
             }
-            for (int j = 0; j < deck.Count; j++)
-            {
-                if (!deck[j].Drawn())
-                {
-                    Debug.Log("card no " + j + " in deck is of card type: " + deck[j].GetCardType());
-                }
-            }
         }
     }
 
@@ -66,8 +59,7 @@ public class HandControl : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             var card = new DamageCard();
-            card.SetCardType(3);
-            card.SetHasEffects(false);
+            card.SetCardType(1);
             card.SetQueueIndex(initIndex);
             deck.Add(card);
             initIndex++;
@@ -75,8 +67,7 @@ public class HandControl : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             var card = new HealCard();
-            card.SetCardType(2);
-            card.SetHasEffects(false);
+            card.SetCardType(1);
             card.SetQueueIndex(initIndex);
             deck.Add(card);
             initIndex++;
@@ -85,16 +76,20 @@ public class HandControl : MonoBehaviour
         {
             var card = new ManaCard();
             card.SetCardType(1);
-            card.SetHasEffects(false);
             card.SetQueueIndex(initIndex);
             deck.Add(card);
             initIndex++;
         }
         {
             var card = new Draw2();
-            card.SetCardType(4);
-            card.SetHasEffects(true);
-            card.SetCardName("Draw 2");
+            card.SetCardType(2);
+            card.SetQueueIndex(initIndex);
+            deck.Add(card);
+            initIndex++;
+        }
+        {
+            var card = new AOE();
+            card.SetCardType(1);
             card.SetQueueIndex(initIndex);
             deck.Add(card);
             initIndex++;
