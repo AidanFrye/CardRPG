@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -131,8 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2576df15c60b6594c847127e20200a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: {fileID: 6922269436476024709}
   healthBarPrefab: {fileID: 5357672011351074566, guid: 86c2fee022dae2c4bbfc7a1f4e896819, type: 3}
+  spriteRenderer: {fileID: 3793143138555098441}
+  spriteObject: {fileID: 5039372196730787182}
 --- !u!61 &4636744447117245943
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -194,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6958908769780594855
 Transform:
   m_ObjectHideFlags: 0

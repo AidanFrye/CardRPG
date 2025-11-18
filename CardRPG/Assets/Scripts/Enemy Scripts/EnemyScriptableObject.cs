@@ -9,4 +9,8 @@ public class EnemyScriptableObject : ScriptableObject
     public int maxHealth;
     public int damage;
     public GameManager.EnemyType enemyType;
+
+    [Header("Sprite Info")]
+    public Sprite sprite;
+    public float scale;
 }

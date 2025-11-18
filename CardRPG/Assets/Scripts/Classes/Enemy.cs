@@ -9,6 +9,7 @@ public class Enemy
     private GameManager.EnemyType enemyType;
     private int maxHealth;
     private int damage;
+    private Sprite sprite;
 
     #region Get Set Damage
     public int DetDamage() 
@@ -60,6 +61,18 @@ public class Enemy
     public void SetQueueIndex(int queueIndex) 
     {
         this.queueIndex = queueIndex;
+    }
+    #endregion
+
+    #region Get Set Sprite
+    public Sprite GetSprite()
+    {
+        return sprite;
+    }
+
+    public void SetSprite(Sprite sprite)
+    {
+        this.sprite = sprite;
     }
     #endregion
 

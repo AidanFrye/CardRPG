@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Card
+public abstract class Card
 {
     private int queueIndex;
     private int cardType;
@@ -12,7 +12,10 @@ public class Card
     private bool hasEffects = false;
     private string cardName;
     private bool drawn = false;
+    public string cardString = "";
+    //check this if replay text is wrong
 
+    #region Get Set CardName
     public void SetCardName(string cardName) 
     {
         this.cardName = cardName;
@@ -22,7 +25,9 @@ public class Card
     {
         return cardName;
     }
+    #endregion
 
+    #region Get Set Drawn
     public bool Drawn() 
     {
         return drawn;
@@ -32,7 +37,9 @@ public class Card
     {
         this.drawn = drawn;
     }
+    #endregion
 
+    #region Get Set HasEffects
     public bool HasEffects() 
     {
         return hasEffects;
@@ -42,7 +49,9 @@ public class Card
     {
         this.hasEffects = hasEffects;
     }
+    #endregion
 
+    #region Get Set QueueIndex
     public int GetQueueIndex()
     {
         return queueIndex;
@@ -52,7 +61,9 @@ public class Card
     {
         this.queueIndex = queueIndex;
     }
+    #endregion
 
+    #region Get Set CardType
     public int GetCardType()
     {
         return cardType;
@@ -77,12 +88,16 @@ public class Card
                 break;
         }
     }
+    #endregion
 
+    #region Get Color
     public Color GetColor()
     {
         return color;
     }
+    #endregion
 
+    #region Get Set Played
     public void SetPlayed(bool played) 
     {
         this.played = played;
@@ -92,60 +107,15 @@ public class Card
     {
         return played;
     }
+    #endregion 
 
     public void PlayCard() 
     {
         SetPlayed(true);
-        string cardString = "";
-        switch (cardType) 
-        {
-            case 1:
-                PlayerControl.ChangePlayerMana(2);
-                cardString = "mana";
-                break;
-            case 2:
-                if (PlayerControl.playerMana > 0)
-                {
-                    if (PlayerControl.playerHealth < 10)
-                    {
-                        PlayerControl.ChangePlayerHealth(1);
-                    }
-                    PlayerControl.ChangePlayerMana(-1);
-                    cardString = "heal";
-                }
-                else 
-                {
-                    Debug.Log("no mana left");
-                }
-                break;
-            case 3:
-                if (PlayerControl.playerMana > 0)
-                {
-                    GameManager.enemies[GameManager.target].ChangeHealth(-1);
-                    PlayerControl.ChangePlayerMana(-1);
-                    cardString = "damage";
-                }
-                else
-                {
-                    Debug.Log("no mana left");
-                }
-                break;
-            case 4:
-                UniqueEffect();
-                break;
-        }
-        TextReplayUIControl.actions.Add("Player used a " + cardString + " card");
-        TextReplayUIControl.UpdateReplayUI();
+        CardEffect();
     }
 
-    private void UniqueEffect() 
-    {
-        switch (cardName) 
-        {
-            case "Draw 2":
-                Debug.Log("drew 2 cards");
-                HandControl.RefillHand(8);
-                break;
-        }
-    }
+
+    protected abstract void CardEffect();
+        //implemented by child classes to create unique effects
 }

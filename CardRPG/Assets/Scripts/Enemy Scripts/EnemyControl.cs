@@ -6,8 +6,10 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     Enemy enemy;
-    [SerializeField] private GameObject highlight;
+    //[SerializeField] private GameObject highlight;
     [SerializeField] private GameObject healthBarPrefab;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject spriteObject;
     private GameObject selector;
     private Transform healthCanvas;
     private GameObject healthbar;
@@ -20,11 +22,14 @@ public class EnemyControl : MonoBehaviour
         healthbar = Instantiate(healthBarPrefab, transform);
         healthbar.transform.localScale = new Vector3(0.5f, 0.5f, 1);
         healthbar.transform.localPosition = new Vector3(-0.982825f, 1, 0);
+        spriteObject.transform.localScale = new Vector3(8, 8, 8);
     }
 
     public void SetEnemy(Enemy enemy) 
     {
         this.enemy = enemy;
+        spriteRenderer.sprite = enemy.GetSprite();
+        spriteRenderer.flipX = true;
     }
 
     private void OnMouseDown()
@@ -60,7 +65,7 @@ public class EnemyControl : MonoBehaviour
     {
         if (GameManager.target == enemy.GetQueueIndex())
         {
-            highlight.SetActive(true);
+            //highlight.SetActive(true);
             /*selector.transform.SetParent(transform, false);
             selector.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
             selector.transform.localPosition = new Vector3(0, 1.3f, 0);
@@ -68,7 +73,7 @@ public class EnemyControl : MonoBehaviour
         }
         else
         {
-            highlight.SetActive(false);
+            //highlight.SetActive(false);
         }
     }
 }

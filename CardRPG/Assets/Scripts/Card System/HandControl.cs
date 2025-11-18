@@ -65,7 +65,7 @@ public class HandControl : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            var card = new Card();
+            var card = new DamageCard();
             card.SetCardType(3);
             card.SetHasEffects(false);
             card.SetQueueIndex(initIndex);
@@ -74,7 +74,7 @@ public class HandControl : MonoBehaviour
         }
         for (int i = 0; i < 4; i++)
         {
-            var card = new Card();
+            var card = new HealCard();
             card.SetCardType(2);
             card.SetHasEffects(false);
             card.SetQueueIndex(initIndex);
@@ -83,7 +83,7 @@ public class HandControl : MonoBehaviour
         }
         for (int i = 0; i < 3; i++)
         {
-            var card = new Card();
+            var card = new ManaCard();
             card.SetCardType(1);
             card.SetHasEffects(false);
             card.SetQueueIndex(initIndex);
@@ -91,7 +91,7 @@ public class HandControl : MonoBehaviour
             initIndex++;
         }
         {
-            var card = new Card();
+            var card = new Draw2();
             card.SetCardType(4);
             card.SetHasEffects(true);
             card.SetCardName("Draw 2");
