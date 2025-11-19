@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class BattleGameManager : MonoBehaviour
 {
     #region Variables
     private GameObject enemyPrefab;
+    private GameObject playerPrefab;
     public static int target;
-    public static List<Enemy> enemies = new List<Enemy>();
+    public static List<Enemy> enemies = new();
     public static int enemyIndex = 0;
     public Canvas gameplayCanvas;
 
@@ -16,8 +17,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/EnemyPrefab");
-        SpawnEnemies(2, Enemy.EnemyType.Random);
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/BattleScene/EnemyPrefab");
+        playerPrefab = Resources.Load<GameObject>("Prefabs/BattleScene/PlayerPrefab");
+        var player = Instantiate(playerPrefab, gameplayCanvas.transform);
+        player.transform.localPosition = new Vector3(-392, 9.5f, 0);
+        SpawnEnemies(2, Enemy.EnemyType.Bat);
     }
     private void SpawnEnemies(int enemyCount, Enemy.EnemyType enemyType) 
     {

@@ -81,13 +81,13 @@ public class TurnManager : MonoBehaviour
     IEnumerator EnemyTurn() 
     {
         currentEnemy = 0;
-        while (currentEnemy != GameManager.enemies.Count)
+        while (currentEnemy != BattleGameManager.enemies.Count)
         {
             enemyCoroutineStarted = true;
             #region EnemyAttackAnimationSequence
             //set up enemyDamage and animatorVars for readability
-            var enemyDamage = GameManager.enemies[currentEnemy].GetDamage();
-            var animator = GameManager.enemies[currentEnemy].GetAnimator();
+            var enemyDamage = BattleGameManager.enemies[currentEnemy].GetDamage();
+            var animator = BattleGameManager.enemies[currentEnemy].GetAnimator();
 
             //freeze the animator
             animator.speed = 0;

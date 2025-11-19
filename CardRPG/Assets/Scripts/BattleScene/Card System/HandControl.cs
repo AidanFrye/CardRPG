@@ -13,7 +13,7 @@ public class HandControl : MonoBehaviour
 
     private void Awake()
     {
-        cardPrefab = Resources.Load<GameObject>("Prefabs/CardPrefab");
+        cardPrefab = Resources.Load<GameObject>("Prefabs/BattleScene/CardPrefab");
         gameplayCanvas = GameObject.Find("GameplayCanvas");
         initIndex = 0;
         hand = new List<Card>();

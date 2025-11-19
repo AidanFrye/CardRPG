@@ -19,9 +19,9 @@ public class AOE : Card
 
     private void Effect() 
     {
-        for (int i = 0; i < GameManager.enemies.Count; i++) 
+        for (int i = 0; i < BattleGameManager.enemies.Count; i++) 
         {
-            GameManager.enemies[i].ChangeHealth(-2);
+            BattleGameManager.enemies[i].ChangeHealth(-2);
         }
     }
 }

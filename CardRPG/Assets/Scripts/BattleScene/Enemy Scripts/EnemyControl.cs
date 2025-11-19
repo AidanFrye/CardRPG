@@ -41,8 +41,8 @@ public class EnemyControl : MonoBehaviour
     {
         gameObject.transform.localScale += new Vector3(3f, 3f);
         Debug.Log("Enemy number " + enemy.GetQueueIndex() + " selected.");
-        GameManager.target = enemy.GetQueueIndex();
-        Debug.Log("The health of the enemy is: " + GameManager.enemies[GameManager.target].GetHealth());
+        BattleGameManager.target = enemy.GetQueueIndex();
+        Debug.Log("The health of the enemy is: " + BattleGameManager.enemies[BattleGameManager.target].GetHealth());
     }
 
     private void Update()
@@ -63,7 +63,7 @@ public class EnemyControl : MonoBehaviour
 
     void ProcessTargeting() 
     {
-        if (GameManager.target == enemy.GetQueueIndex())
+        if (BattleGameManager.target == enemy.GetQueueIndex())
         {
             //highlight.SetActive(true);
             selector.transform.SetParent(transform, false);
