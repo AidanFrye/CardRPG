@@ -12,7 +12,7 @@ public class Enemy
     private Sprite sprite;
 
     #region Get Set Damage
-    public int DetDamage() 
+    public int GetDamage() 
     {
         return damage;
     }

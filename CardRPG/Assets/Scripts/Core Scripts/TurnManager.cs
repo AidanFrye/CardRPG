@@ -11,6 +11,7 @@ public class TurnManager : MonoBehaviour
         Wait,
         GameOver
     }
+    private int currentEnemy;
 
     public bool enemyCoroutineStarted = false;
 
@@ -63,13 +64,13 @@ public class TurnManager : MonoBehaviour
                     //end game logic
                     break;
             }
-            Debug.Log(currentState.ToString());
         }
     }
 
     public static void SetTurnState(TurnState newState) 
     {
         currentState = newState;
+        Debug.Log(currentState.ToString());
     }
 
     public static void EndPlayTurn() 
@@ -79,12 +80,18 @@ public class TurnManager : MonoBehaviour
 
     IEnumerator EnemyTurn() 
     {
-        enemyCoroutineStarted = true;
-        yield return new WaitForSeconds(1f);
-        PlayerControl.ChangePlayerHealth(-1);
-        //enemy animation start
-        yield return new WaitForSeconds(1f);
-        //wait until end of attack animation
+        currentEnemy = 0;
+        while (currentEnemy != GameManager.enemies.Count)
+        {
+            var enemyDamage = GameManager.enemies[currentEnemy].GetDamage();
+            enemyCoroutineStarted = true;
+            yield return new WaitForSeconds(1f);
+            PlayerControl.ChangePlayerHealth(enemyDamage * -1);
+            //enemy animation start
+            yield return new WaitForSeconds(1f);
+            //wait until end of attack animation
+            currentEnemy++;
+        }
         SetTurnState(TurnState.Player);
         enemyCoroutineStarted = false;
         //player turn again (or whoever it goes to next);

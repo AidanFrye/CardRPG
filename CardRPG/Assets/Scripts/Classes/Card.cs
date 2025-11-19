@@ -85,13 +85,11 @@ public abstract class Card
     #region Get Set Sprite
     public Sprite GetSprite()
     {
-        Debug.Log("returning sprite");
         return sprite;
     }
 
     public void SetSprite(Sprite sprite) 
     {
-        Debug.Log("setting sprite");
         this.sprite = sprite;
     }
     #endregion
