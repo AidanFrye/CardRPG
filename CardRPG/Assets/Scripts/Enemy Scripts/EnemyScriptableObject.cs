@@ -8,9 +8,13 @@ public class EnemyScriptableObject : ScriptableObject
     [Header("Base Stats")]
     public int maxHealth;
     public int damage;
-    public GameManager.EnemyType enemyType;
+    public Enemy.EnemyType enemyType;
 
     [Header("Sprite Info")]
     public Sprite sprite;
     public float scale;
+
+    [Header("Animation Clips")]
+    public AnimationClip idleAnimation;
+    public AnimationClip attackAnimation;
 }

@@ -83,13 +83,41 @@ public class TurnManager : MonoBehaviour
         currentEnemy = 0;
         while (currentEnemy != GameManager.enemies.Count)
         {
-            var enemyDamage = GameManager.enemies[currentEnemy].GetDamage();
             enemyCoroutineStarted = true;
-            yield return new WaitForSeconds(1f);
+            #region EnemyAttackAnimationSequence
+            //set up enemyDamage and animatorVars for readability
+            var enemyDamage = GameManager.enemies[currentEnemy].GetDamage();
+            var animator = GameManager.enemies[currentEnemy].GetAnimator();
+
+            //freeze the animator
+            animator.speed = 0;
+
+            //wait for half a second
+            yield return new WaitForSeconds(0.5f);
+
+            //unfreeze the animator
+            animator.speed = 1;
+
+            //set the animator to play the attack animation
+            animator.Play("Attack", 0, 0f);
+
+            //wait one frame for animator to update
+            yield return null;
+
+            //wait until finished
+            while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+            {
+                yield return null;
+            }
+            //update health
             PlayerControl.ChangePlayerHealth(enemyDamage * -1);
-            //enemy animation start
-            yield return new WaitForSeconds(1f);
-            //wait until end of attack animation
+
+            //wait for half a second after the attack
+            yield return new WaitForSeconds(0.5f);
+
+            //resume idle animation
+            animator.Play("Idle", 0, 0f);
+            #endregion
             currentEnemy++;
         }
         SetTurnState(TurnState.Player);

@@ -20,9 +20,9 @@ public class EnemyControl : MonoBehaviour
         healthCanvas = transform.parent.Find("UI").Find("HealthCanvas").transform;
         //selector = transform.parent.Find("Selector").gameObject;
         healthbar = Instantiate(healthBarPrefab, transform);
-        healthbar.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        healthbar.transform.localScale = new Vector3(0.5f, 0.5f, 0);
         healthbar.transform.localPosition = new Vector3(-0.982825f, 1, 0);
-        spriteObject.transform.localScale = new Vector3(8, 8, 8);
+        spriteObject.transform.localScale = new Vector3(8, 8, 0);
     }
 
     public void SetEnemy(Enemy enemy) 
@@ -48,7 +48,7 @@ public class EnemyControl : MonoBehaviour
     private void Update()
     {
         ProcessHealthChange();
-        ProcessTargeting();
+        //ProcessTargeting();
     }
 
     void ProcessHealthChange() 
@@ -66,10 +66,10 @@ public class EnemyControl : MonoBehaviour
         if (GameManager.target == enemy.GetQueueIndex())
         {
             //highlight.SetActive(true);
-            /*selector.transform.SetParent(transform, false);
+            selector.transform.SetParent(transform, false);
             selector.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
             selector.transform.localPosition = new Vector3(0, 1.3f, 0);
-            */
+            
         }
         else
         {

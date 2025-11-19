@@ -6,10 +6,23 @@ public class Enemy
 {
     private int health;
     private int queueIndex;
-    private GameManager.EnemyType enemyType;
+    private EnemyType enemyType;
     private int maxHealth;
     private int damage;
     private Sprite sprite;
+
+    private AnimationClip idleClip;
+    private AnimationClip attackClip;
+
+    private Animator animator;
+
+    public enum EnemyType
+    {
+        Bat,
+        Skeleton,
+        Dragon,
+        Random
+    }
 
     #region Get Set Damage
     public int GetDamage() 
@@ -77,14 +90,49 @@ public class Enemy
     #endregion
 
     #region Get Set EnemyType
-    public GameManager.EnemyType GetEnemyType() 
+    public EnemyType GetEnemyType() 
     {
         return enemyType;
     }
 
-    public void SetEnemyType(GameManager.EnemyType enemyType) 
+    public void SetEnemyType(EnemyType enemyType) 
     {
         this.enemyType = enemyType;
+    }
+    #endregion
+
+    #region Get Set Animator
+    public Animator GetAnimator() 
+    {
+        return animator;
+    }
+    public void SetAnimator(Animator animator) 
+    {
+        this.animator = animator;
+    }
+    #endregion
+
+    #region Get Set IdleClip
+    public AnimationClip GetIdleClip() 
+    {
+        return idleClip;
+    }
+
+    public void SetIdleClip(AnimationClip idleClip) 
+    {
+        this.idleClip = idleClip;
+    }
+    #endregion
+
+    #region Get Set AttackClip
+    public AnimationClip GetAttackClip()
+    {
+        return attackClip;
+    }
+
+    public void SetAttackClip(AnimationClip attackClip)
+    {
+        this.attackClip = attackClip;
     }
     #endregion
 }

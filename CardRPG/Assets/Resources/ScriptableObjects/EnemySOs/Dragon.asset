@@ -16,3 +16,6 @@ MonoBehaviour:
   damage: 5
   enemyType: 2
   sprite: {fileID: -6017490860483724875, guid: 74061816db95d48429e43602c667685d, type: 3}
+  scale: 0
+  idleAnimation: {fileID: 7400000, guid: 8f24bf50e1987994a866d0c2653ee276, type: 2}
+  attackAnimation: {fileID: 7400000, guid: 04ebd44e50565204698dc03052976fd0, type: 2}
