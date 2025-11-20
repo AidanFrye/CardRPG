@@ -19,8 +19,8 @@ public class Enemy
     public enum EnemyType
     {
         Bat,
-        Skeleton,
         Dragon,
+        Skeleton,
         Random
     }
 

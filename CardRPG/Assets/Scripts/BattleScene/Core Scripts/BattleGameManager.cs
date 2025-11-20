@@ -21,7 +21,7 @@ public class BattleGameManager : MonoBehaviour
         playerPrefab = Resources.Load<GameObject>("Prefabs/BattleScene/PlayerPrefab");
         var player = Instantiate(playerPrefab, gameplayCanvas.transform);
         player.transform.localPosition = new Vector3(-392, 9.5f, 0);
-        SpawnEnemies(2, Enemy.EnemyType.Bat);
+        SpawnEnemies(2, EncounterManager.Instance.encounterType);
     }
     private void SpawnEnemies(int enemyCount, Enemy.EnemyType enemyType) 
     {
@@ -38,7 +38,7 @@ public class BattleGameManager : MonoBehaviour
             }
             var enemy = new Enemy();
             enemy.SetQueueIndex(enemyIndex);
-            enemy.SetEnemyType(enemyType);
+            enemy.SetEnemyType(type.enemyType);
             enemy.SetMaxHealth(type.maxHealth);
             enemy.SetDamage(type.damage);
             enemy.SetHealth(enemy.GetMaxHealth());

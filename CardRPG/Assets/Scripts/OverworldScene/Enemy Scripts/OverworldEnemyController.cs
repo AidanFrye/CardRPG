@@ -5,16 +5,25 @@ using UnityEngine;
 
 public class OverworldEnemyController : MonoBehaviour
 {
-    private Vector3 target;
+    private Vector2 target;
+    private Rigidbody2D rb;
+    private bool right;
+    private bool up;
+    public Enemy enemy;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         StartCoroutine(MovementLoop());
     }
 
     void PickPoint() 
     {
-        target = Vector3.zero + new Vector3(Random.Range(-100, 101), Random.Range(-100, 101), 0);
+        float xPos = Random.Range(-3, 4);
+        float yPos = Random.Range(-2, 3);
+        target = new Vector2(xPos, yPos);
+        right = rb.position.x < target.x;
+        up = rb.position.y < target.y;
     }
 
     IEnumerator MovementLoop()
@@ -26,50 +35,38 @@ public class OverworldEnemyController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(2, 6));
         }
     }
-    IEnumerator TravelToPoint() 
+    IEnumerator TravelToPoint()
     {
-        bool foundPosX = false;
-        bool foundPosY = false;
-        var sprite = gameObject.GetComponentInChildren<SpriteRenderer>();
-        while (!(foundPosY && foundPosX)) 
+        SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
+        float speed = 7f;
+
+        while (true)
         {
-            if (!foundPosX)
+            Vector2 pos = rb.position;
+            Vector2 dir = (target - pos);
+            if (dir.magnitude < 0.05f)
             {
-                if (transform.localPosition.x < (target.x - 3))
-                {
-                    transform.localPosition += new Vector3(32f * Time.deltaTime, 0, 0);
-                    sprite.flipX = false;
-                }
-                else if (transform.localPosition.x > (target.x + 3))
-                {
-                    transform.localPosition -= new Vector3(32f * Time.deltaTime, 0, 0);
-                    sprite.flipX = true;
-                }
-                else
-                {
-                    foundPosX = true;
-                    Debug.Log("found x pos");
-                }
+                break;
             }
-            if (!foundPosY)
+            if (dir.x != 0)
             {
-                if (transform.localPosition.y < (target.y - 3))
-                {
-                    transform.localPosition += new Vector3(0, 32f * Time.deltaTime, 0);
-                }
-                else if (transform.localPosition.y > (target.y + 3))
-                {
-                    transform.localPosition -= new Vector3(0, 32f * Time.deltaTime, 0);
-                }
-                else
-                {
-                    foundPosY = true;
-                    Debug.Log("found y pos");
-                }
+                sprite.flipX = dir.x < 0;
             }
+            Vector2 move = dir.normalized * speed * Time.deltaTime;
+            rb.MovePosition(pos + move);
+
             yield return null;
         }
-        Debug.Log("one loop");
+
+        Debug.Log("Reached target!");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            EncounterManager.Instance.TriggerEncounter(enemy.GetEnemyType());
+        }
     }
 
     private void LateUpdate()
