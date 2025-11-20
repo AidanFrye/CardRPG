@@ -6,6 +6,7 @@ public class OverworldPlayerController : MonoBehaviour
 {
     private Animator animator;
 
+    //change movement for player and enemy to rb based movement and not transform based movement
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -36,5 +37,14 @@ public class OverworldPlayerController : MonoBehaviour
         {
             transform.position -= new Vector3(2 * Time.deltaTime, 0, 0);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Enemy")) 
+        {
+            Debug.Log("starting battle");
+        }
+        Debug.Log("starting battle");
     }
 }
