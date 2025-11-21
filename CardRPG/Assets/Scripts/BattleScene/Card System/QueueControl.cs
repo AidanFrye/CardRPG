@@ -45,7 +45,7 @@ public class QueueControl : MonoBehaviour
         }
         Debug.Log("Player mana: " + PlayerControl.playerMana);
         Debug.Log("Player health: " + PlayerControl.playerHealth);
-        Debug.Log("Enemy health: " + BattleGameManager.enemies[BattleGameManager.target].GetHealth());
+        Debug.Log("Enemy health: " + BattleGameManager.target.GetHealth());
         queue.Clear();
         HandControl.RefillHand(7);
         animator.Play("Idle");

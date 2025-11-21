@@ -8,6 +8,7 @@ public class EnemyScriptableObject : ScriptableObject
     [Header("Base Stats")]
     public int maxHealth;
     public int damage;
+    public int numInWave;
     public Enemy.EnemyType enemyType;
 
     [Header("Sprite Info")]

@@ -21,7 +21,7 @@ public class DamageCard : Card
     {
         if (PlayerControl.playerMana > 0)
         {
-            BattleGameManager.enemies[BattleGameManager.target].ChangeHealth(-1);
+            BattleGameManager.target.ChangeHealth(-5);
             PlayerControl.ChangePlayerMana(-1);
         }
         else

@@ -7,6 +7,7 @@ public class OverworldPlayerController : MonoBehaviour
     private Animator animator;
     private Vector2 input;
     private Rigidbody2D rb;
+    private int speed = 4;
 
     //change movement for player and enemy to rb based movement and not transform based movement
     private void Awake()
@@ -27,6 +28,6 @@ public class OverworldPlayerController : MonoBehaviour
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input.Normalize();
-        rb.MovePosition(rb.position + input * Time.deltaTime);
+        rb.MovePosition(rb.position + (input * Time.deltaTime * speed));
     }
 }

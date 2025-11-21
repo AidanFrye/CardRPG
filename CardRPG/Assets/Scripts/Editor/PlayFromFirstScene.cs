@@ -7,7 +7,7 @@ public static class PlayFromStartScene
 {
     private const string MenuPath = "Tools/PlayFromFirstScene %#L";
     private const string PrefKey = "PlayFromStartSceneEnabled";
-    private const string StartScenePath = "Assets/Scenes/Main.unity";
+    private const string StartScenePath = "Assets/Scenes/Overworld.unity";
 
     // Key used to store which scene was open when hitting Play
     private const string LastSceneKey = "PlayFromStart_LastScenePath";

@@ -41,8 +41,8 @@ public class EnemyControl : MonoBehaviour
     {
         gameObject.transform.localScale += new Vector3(3f, 3f);
         Debug.Log("Enemy number " + enemy.GetQueueIndex() + " selected.");
-        BattleGameManager.target = enemy.GetQueueIndex();
-        Debug.Log("The health of the enemy is: " + BattleGameManager.enemies[BattleGameManager.target].GetHealth());
+        BattleGameManager.target = enemy;
+        Debug.Log("The health of the enemy is: " + BattleGameManager.target.GetHealth());
     }
 
     private void Update()
@@ -55,7 +55,12 @@ public class EnemyControl : MonoBehaviour
     {
         if (enemy.GetHealth() <= 0)
         {
+            BattleGameManager.enemies.Remove(enemy);
             Destroy(gameObject);
+            if (BattleGameManager.enemies.Count < 1) 
+            {
+                BattleGameManager.battleOver = true;
+            }
         }
         var currentHealth = healthbar.transform.Find("CurrentHealth");
         currentHealth.transform.localScale = new Vector3((float)enemy.GetHealth() / (float)enemy.GetMaxHealth(), 1);
@@ -63,7 +68,7 @@ public class EnemyControl : MonoBehaviour
 
     void ProcessTargeting() 
     {
-        if (BattleGameManager.target == enemy.GetQueueIndex())
+        if (BattleGameManager.target == enemy)
         {
             //highlight.SetActive(true);
             selector.transform.SetParent(transform, false);
